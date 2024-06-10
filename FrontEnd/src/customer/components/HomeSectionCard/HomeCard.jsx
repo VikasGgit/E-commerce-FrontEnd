@@ -1,28 +1,14 @@
 import React from 'react'
 
-const HomeCard = () => {
+const HomeCard = ({item}) => {
   return (
-    <div className='flex flex-row items-center object-cover mx-3 overflow-hidden rounded-md shadow-lg cursor-pointer bg-zinc-200' >
-            <div className='object-cover w-[13rem] mx-1' >
-              <img  src="https://static.massimodutti.net/3/photos/2024/V/0/2/p/0153/346/405/0153346405_1_1_16.jpg?t=1699011436394&impolicy=massimodutti-itxmediumhigh&imformat=chrome&imwidth=500" alt="" />
+    <div className='flex flex-col object-cover mx-3 my-2 overflow-hidden rounded-md shadow-lg cursor-pointer itemscol-center bg-zinc-200 w-[15rem],  items-center justify-center ' >
+            <div className='h-[15rem] w-[13rem] p-2' >
+              <img className='object-cover object-top w-full h-full rounded-md'  src={item.image} alt="" />
             </div>
-            <div className='object-cover w-[13rem] mx-1 ' >
-              <img  src="https://static.massimodutti.net/3/photos/2024/V/0/2/p/0153/346/405/0153346405_1_1_16.jpg?t=1699011436394&impolicy=massimodutti-itxmediumhigh&imformat=chrome&imwidth=500" alt="" />
-            </div>
-            <div className='object-cover w-[13rem] mx-1' >
-              <img  src="https://static.massimodutti.net/3/photos/2024/V/0/2/p/0153/346/405/0153346405_1_1_16.jpg?t=1699011436394&impolicy=massimodutti-itxmediumhigh&imformat=chrome&imwidth=500" alt="" />
-            </div>
-            <div className='object-cover w-[13rem] mx-1' >
-              <img  src="https://static.massimodutti.net/3/photos/2024/V/0/2/p/0153/346/405/0153346405_1_1_16.jpg?t=1699011436394&impolicy=massimodutti-itxmediumhigh&imformat=chrome&imwidth=500" alt="" />
-            </div>
-            <div className='object-cover w-[13rem] mx-1' >
-              <img  src="https://static.massimodutti.net/3/photos/2024/V/0/2/p/0153/346/405/0153346405_1_1_16.jpg?t=1699011436394&impolicy=massimodutti-itxmediumhigh&imformat=chrome&imwidth=500" alt="" />
-            </div>
-            <div className='object-cover w-[13rem] mx-1' >
-              <img  src="https://static.massimodutti.net/3/photos/2024/V/0/2/p/0153/346/405/0153346405_1_1_16.jpg?t=1699011436394&impolicy=massimodutti-itxmediumhigh&imformat=chrome&imwidth=500" alt="" />
-            </div>
-            <div className='object-cover w-[13rem] mx-1' >
-              <img  src="https://static.massimodutti.net/3/photos/2024/V/0/2/p/0153/346/405/0153346405_1_1_16.jpg?t=1699011436394&impolicy=massimodutti-itxmediumhigh&imformat=chrome&imwidth=500" alt="" />
+            <div className='p-4' >
+              <h3 className='text-lg font-medium text-gray-900'>{item.brand}</h3>
+              <p className='mt-2 text-sm text-gray-500' >{item.decrription}</p>
             </div>
     </div>
   )
