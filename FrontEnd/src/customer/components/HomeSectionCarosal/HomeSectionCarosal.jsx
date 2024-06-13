@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import AliceCarousel from "react-alice-carousel";
 import HomeCard from "../HomeSectionCard/HomeCard";
 import { Button } from "@mui/material";
@@ -6,16 +6,21 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { KurtaMens } from "../../../data/MensKurta";
 
 const HomeSectionCarosal = () => {
-    const [activeIndex, setActiveIndex]=useState(0);
+
+    const carosalRef=useRef(null);  
   const responsive = {
     0: { items: 1 },
     720: { items: 3 },
-    1024: { items: 4.5 },
+    1024: { items: 5 },
   };
-  const slidePrev=()=>setActiveIndex(activeIndex-1)
-  const slideNext=()=>setActiveIndex(activeIndex+1)
-  const syncActiveIndex=({item})=>setActiveIndex(item);
+  const slideNext = ()=>{
+    carosalRef.current.slideNext();
+  }
+  const slidePrev = ()=>{
+    carosalRef.current.slidePrev();
+  }
   const items = KurtaMens.map((item) => <HomeCard item={item} />);
+  
   return (
     <>
       <div className="relative px-4 m-2 lg:px-8">
@@ -26,11 +31,10 @@ const HomeSectionCarosal = () => {
             disableButtonsControls
             controlsStrategy="alternate"
             responsive={responsive}
-            disableDotsControls
-            onSlideChange={syncActiveIndex}
-            activeIndex={activeIndex}
+            disableDotsControl
+            ref={carosalRef}
           />
-          { activeIndex!== items.length-5 && <Button
+          <Button
             onClick={slideNext}
             variant="contained"
             className="z-50 bg-white"
@@ -40,12 +44,12 @@ const HomeSectionCarosal = () => {
               right: "0",
               transform: "translate(50%) rotate(90deg)",
               bgcolor: "white",
-              color: "black",
-            }}
+              color: "black", }
+            }
           >
             <ChevronLeftIcon sx={{ transform: "rotate(90deg) " }} />
-          </Button>}
-         { activeIndex!==5-items.length && <Button
+          </Button>
+           <Button
           onClick={slidePrev}
             variant="contained"
             className="z-50"
@@ -59,7 +63,7 @@ const HomeSectionCarosal = () => {
             }}
           >
             <ChevronLeftIcon sx={{ transform: "rotate(90deg) " }} />
-          </Button>}
+          </Button>
         </div>
       </div>
     </>
