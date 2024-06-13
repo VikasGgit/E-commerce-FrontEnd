@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { KurtaMens } from "../../../data/MensKurta";
 
-const HomeSectionCarosal = () => {
+const HomeSectionCarosal = ({data, secName}) => {
 
     const carosalRef=useRef(null);  
   const responsive = {
@@ -19,12 +19,12 @@ const HomeSectionCarosal = () => {
   const slidePrev = ()=>{
     carosalRef.current.slidePrev();
   }
-  const items = KurtaMens.map((item) => <HomeCard item={item} />);
+  const items = data.map((item) => <HomeCard item={item} />);
   
   return (
     <>
       <div className="relative px-4 m-2 lg:px-8">
-        Mens Kurta
+        <h2 className="text-xl font-extrabold text-zinc-700 " > {secName} </h2>
         <div className="relative p-5 ">
           <AliceCarousel
             items={items}
