@@ -55,3 +55,82 @@ export const singleFilters=[
         ]
     }
 ]
+
+export const data=[
+  
+    {
+    
+       brand:"Vikas",
+        decrription:"Mens blue Kurta",
+        img:"https://www.tistabene.com/cdn/shop/products/KRT-0312A.jpg?v=1694081057&width=5000",
+        
+        title:"Kurta",
+        o_price:"100",
+        ac_price:"1000",
+        dis:"71",
+    },
+    {   
+        
+        brand:"Aikas",
+        decrription:"Mens White Kurta",
+        
+        title:"Kurta",
+        o_price:"109",
+        ac_price:"100",
+        dis:"49",
+        img:"https://www.tistabene.com/cdn/shop/files/KRT-0286A.jpg?v=1702894114&width=5000"
+    },
+    {   brand:"Nitofir",
+        decrription:"Mens red Kurta",
+        title:"Kurta",
+        o_price:"190",
+        ac_price:"400",
+        dis:"52",
+        img:"https://www.tistabene.com/cdn/shop/files/KRT-0314A_720x_773448e8-81b8-4a54-9aa7-0f08dabdd0db.webp?v=1702484034&width=5000"
+    },
+    {   brand:"Vikas",
+        decrription:"Mens blue Kurta",
+        title:"Kurta",
+        o_price:"100",
+        ac_price:"1000",
+        dis:"71",
+        img:"https://www.tistabene.com/cdn/shop/files/KRT-0311A.jpg?v=1702039279&width=5000"
+    },
+    {
+        brand:"Vikas",
+         decrription:"Mens blue Kurta",
+         title:"Kurta",
+         o_price:"100",
+         ac_price:"1000",
+         dis:"71",
+         img:"https://www.tistabene.com/cdn/shop/products/KRT-0312A.jpg?v=1694081057&width=5000"
+     },
+     {   
+         
+         brand:"Aikas",
+         decrription:"Mens White Kurta",
+         title:"Kurta",
+         o_price:"100",
+         ac_price:"1000",
+         dis:"71",
+         img:"https://www.tistabene.com/cdn/shop/files/KRT-0286A.jpg?v=1702894114&width=5000"
+     },
+     {   brand:"Nitofir",
+         decrription:"Mens red Kurta",
+         title:"Kurta",
+         o_price:"100",
+         ac_price:"1000",
+         dis:"71",
+         img:"https://www.tistabene.com/cdn/shop/files/KRT-0314A_720x_773448e8-81b8-4a54-9aa7-0f08dabdd0db.webp?v=1702484034&width=5000"
+     },
+     {   brand:"Vikas",
+         decrription:"Mens blue Kurta",
+         title:"Kurta",
+         o_price:"100",
+         ac_price:"1000",
+         dis:"71",
+         img:"https://www.tistabene.com/cdn/shop/files/KRT-0311A.jpg?v=1702039279&width=5000"
+     },
+   
+  
+  ]

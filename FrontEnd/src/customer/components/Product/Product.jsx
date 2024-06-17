@@ -1,111 +1,8 @@
 import React from 'react'
 import ProductCard from './ProductCard'
-const data=[
-  
-  {
-  
-     brand:"Vikas",
-      decrription:"Mens blue Kurta",
-      img:"https://www.tistabene.com/cdn/shop/products/KRT-0312A.jpg?v=1694081057&width=5000",
-      
-      title:"Kurta",
-      o_price:"100",
-      ac_price:"1000",
-      dis:"71",
-  },
-  {   
-      
-      brand:"Aikas",
-      decrription:"Mens White Kurta",
-      
-      title:"Kurta",
-      o_price:"109",
-      ac_price:"100",
-      dis:"49",
-      img:"https://www.tistabene.com/cdn/shop/files/KRT-0286A.jpg?v=1702894114&width=5000"
-  },
-  {   brand:"Nitofir",
-      decrription:"Mens red Kurta",
-      title:"Kurta",
-      o_price:"190",
-      ac_price:"400",
-      dis:"52",
-      img:"https://www.tistabene.com/cdn/shop/files/KRT-0314A_720x_773448e8-81b8-4a54-9aa7-0f08dabdd0db.webp?v=1702484034&width=5000"
-  },
-  {   brand:"Vikas",
-      decrription:"Mens blue Kurta",
-      title:"Kurta",
-      o_price:"100",
-      ac_price:"1000",
-      dis:"71",
-      img:"https://www.tistabene.com/cdn/shop/files/KRT-0311A.jpg?v=1702039279&width=5000"
-  },
-  {
-      brand:"Vikas",
-       decrription:"Mens blue Kurta",
-       title:"Kurta",
-       o_price:"100",
-       ac_price:"1000",
-       dis:"71",
-       img:"https://www.tistabene.com/cdn/shop/products/KRT-0312A.jpg?v=1694081057&width=5000"
-   },
-   {   
-       
-       brand:"Aikas",
-       decrription:"Mens White Kurta",
-       title:"Kurta",
-       o_price:"100",
-       ac_price:"1000",
-       dis:"71",
-       img:"https://www.tistabene.com/cdn/shop/files/KRT-0286A.jpg?v=1702894114&width=5000"
-   },
-   {   brand:"Nitofir",
-       decrription:"Mens red Kurta",
-       title:"Kurta",
-       o_price:"100",
-       ac_price:"1000",
-       dis:"71",
-       img:"https://www.tistabene.com/cdn/shop/files/KRT-0314A_720x_773448e8-81b8-4a54-9aa7-0f08dabdd0db.webp?v=1702484034&width=5000"
-   },
-   {   brand:"Vikas",
-       decrription:"Mens blue Kurta",
-       title:"Kurta",
-       o_price:"100",
-       ac_price:"1000",
-       dis:"71",
-       img:"https://www.tistabene.com/cdn/shop/files/KRT-0311A.jpg?v=1702039279&width=5000"
-   },
- 
+import { data } from './ProductData'
+import {useNavigate, useLocation} from 'react-router-dom'
 
-]
-// const Product = () => {
-//   return (
-//     <div className="grid justify-center grid-cols-1 gap-4 m-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-//       {data.map((item, index) => (
-//         <div key={index} className="w-[15rem] m-3 transition-all cursor-pointer hover:scale-105">
-//           <ProductCard item={item} />
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default Product
-
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { Fragment, useState } from 'react'
 import {
   Dialog,
@@ -136,7 +33,41 @@ function classNames(...classes) {
 
 export default function Example() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-
+  
+  
+  
+    const location = useLocation();
+    const navigate = useNavigate();
+  
+    const han = (value, sectionId) => {
+      const searchParams = new URLSearchParams(location.search);
+      let filterValue = searchParams.get(sectionId)?.split(',') || [];
+  
+      if (filterValue.includes(value)) {
+        filterValue = filterValue.filter(item => item !== value);
+        if (filterValue.length === 0) {
+          searchParams.delete(sectionId);
+        } else {
+          searchParams.set(sectionId, filterValue.join(','));
+        }
+      } else {
+        filterValue.push(value);
+        searchParams.set(sectionId, filterValue.join(','));
+      }
+  
+      const query = searchParams.toString();
+      navigate(`?${query}`);
+    };
+    
+    const handleRadioFilter=(e, sectionId)=>{
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set(sectionId,e);
+      const query = searchParams.toString();
+      navigate(`?${query}`);
+    }
+  
+  
+  
   return (
     <div className="bg-white">
       <div>
@@ -203,6 +134,7 @@ export default function Example() {
                                 {section.options.map((option, optionIdx) => (
                                   <div key={option.value} className="flex items-center">
                                     <input
+                                      onChange={()=>han(option.value ,section.id)}
                                       id={`filter-mobile-${section.id}-${optionIdx}`}
                                       name={`${section.id}[]`}
                                       defaultValue={option.value}
@@ -245,10 +177,11 @@ export default function Example() {
                                 {section.options.map((option, optionIdx) => (
                                   <div key={option.value} className="flex items-center">
                                     <input
+                                    onChange={(e)=>handleRadioFilter(e.target.value,section.id)}
                                       id={`filter-mobile-${section.id}-${optionIdx}`}
                                       name={`${section.id}[]`}
                                       defaultValue={option.value}
-                                      type="checkbox"
+                                      type="radio"
                                       defaultChecked={option.checked}
                                       className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                     />
@@ -276,8 +209,9 @@ export default function Example() {
         <main className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
-
+           
             <div className="flex items-center">
+              
               <Menu as="div" className="relative inline-block text-left">
                 <div>
                   <MenuButton className="inline-flex justify-center text-sm font-medium text-gray-700 group hover:text-gray-900">
@@ -321,7 +255,7 @@ export default function Example() {
               </Menu>
 
               <button type="button" className="p-2 ml-5 -m-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                <span className="sr-only">View grid</span>
+                
                 <Squares2X2Icon className="w-5 h-5" aria-hidden="true" />
               </button>
               <button
@@ -342,6 +276,10 @@ export default function Example() {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
+              
+              <div
+              >
+              <p className='text-xl font-extrabold' >Filters</p>
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>
                
@@ -367,6 +305,7 @@ export default function Example() {
                             {section.options.map((option, optionIdx) => (
                               <div key={option.value} className="flex items-center">
                                 <input
+                                onChange={()=>han(option.label ,section.id)}
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
@@ -409,10 +348,11 @@ export default function Example() {
                             {section.options.map((option, optionIdx) => (
                               <div key={option.value} className="flex items-center">
                                 <input
+                                onChange={(e)=>handleRadioFilter(e.target.value,section.id)}
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
-                                  type="checkbox"
+                                  type="radio"
                                   defaultChecked={option.checked}
                                   className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                 />
@@ -431,7 +371,7 @@ export default function Example() {
                   </Disclosure>
                 ))}
               </form>
-
+</div>
               {/* Product grid */}
               <div className="lg:col-span-3">
                 <div className='flex flex-row flex-wrap justify-center' >
