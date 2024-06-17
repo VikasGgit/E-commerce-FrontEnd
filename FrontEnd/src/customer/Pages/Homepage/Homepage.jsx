@@ -7,7 +7,7 @@ import { KurtaMens } from '../../../data/MensKurta'
 const Homepage = () => {
   return (
     <>
-<Carousel/>
+<Carousel className="-z-50" />
 <div className='flex flex-col justify-center px-10 space-y-10' >
     <HomeSectionCarosal data={KurtaMens} secName="Mens Kurta"/>
     <HomeSectionCarosal data={KurtaMens} secName="Womens Kurta"/>

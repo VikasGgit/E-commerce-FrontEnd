@@ -4,7 +4,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import { CarosalData } from './HomeCarosalData';
 
 
-const items = CarosalData.map((item)=><img src={item.image} className='w-screen p-2 cursor-pointer max-h-96' role='presentation' />)
+const items = CarosalData.map((item)=><img src={item.image} className='w-screen p-2 cursor-pointer max-h-96 -z-40' role='presentation' />)
 
 export const Carousel = () => (
     <AliceCarousel
@@ -16,4 +16,5 @@ export const Carousel = () => (
         infinite
         
     />
+   
 );
