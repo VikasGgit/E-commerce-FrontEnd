@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { StarIcon } from '@heroicons/react/20/solid'
+import { data } from './ProductData'
 import { Radio, RadioGroup } from '@headlessui/react'
 
 import { Button, Grid, LinearProgress, Rating,Box } from '@mui/material'
@@ -358,6 +358,28 @@ export default function ProductsDetails() {
   </div>
 </section>
 
+{/* Similar Products */}
+<section>
+  <h1 className='p-10 text-xl font-bold' >Similar Products</h1>
+  <div className='flex flex-wrap items-center justify-center' >
+  {data.map((item)=> <div className='w-[12rem] m-3 transition-all cursor-pointer hover:scale-105'>
+      <div  className='h-[13rem]  bg-red-200  rounded-lg  '>
+        <img className='object-cover object-left-top w-full h-full rounded-md' src={item.img} alt="" />
+      </div>
+      <div className='p-3 bg-gray-200 rounded-md ' >
+        <p className='font-bold opacity-60'  >{item.brand}</p>
+        <p className='' >{item.title}</p>
+        
+      
+      <p> <span className='text-xl font-semibold' >₹{item.o_price} </span> 
+      <span className='line-through' >₹{item.ac_price}</span>
+      <span className='text-xl text-red-400' > {item.dis}%  off</span>
+      </p>
+      </div>
+
+    </div>)}
+  </div>
+</section>
       </div>
     </div>
   )

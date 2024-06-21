@@ -374,7 +374,7 @@ export default function Example() {
 </div>
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <div className='flex flex-row flex-wrap justify-center' >
+                <div className='flex flex-row flex-wrap items-center justify-center' >
                 {data.map((item)=>(<div>
                   <ProductCard item={item}/>
                   </div>))}
