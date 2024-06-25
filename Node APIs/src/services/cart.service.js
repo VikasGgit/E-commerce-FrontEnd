@@ -1,4 +1,6 @@
 import Cart from "../modals/cart.model.js"
+import CartItem from "../modals/cartItem. model.js";
+import Product from "../modals/product.model.js";
 
 const createCart= async(user)=>{
     try{ 
@@ -16,4 +18,60 @@ const createCart= async(user)=>{
    
 }
 
-export {createCart}
+const findUserCart = async(user)=>{
+    try{
+    const cart=await Cart.find({user});
+    let cartItems=CartItem.find({cart:cart._id}).populate('products');
+    cart.cartItems = cartItems;
+    let totalPrice=0;
+    let totalDiscountedPrice=0;
+    let totalItems=0;
+
+    for(let cartItem of cart.cartItems){
+        totalPrice += cartItem.price;
+        totalDiscountedPrice += cartItem.discountedPrice;
+        totalItems += cartItem.quantity;
+}
+    let discount = totalPrice-totalDiscountedPrice;
+    cart.totalPrice=totalPrice;
+    cart.discount=discount;
+    cart.totalItem=totalItems;
+
+    return cart;
+    }
+    catch (error) {
+        throw new Error(`Error in creating finding: ${error.message}`);
+    }
+}
+
+const addCartItem= async (userId, req)=>{
+        try{
+            const cart=await Cart.findOne({user:userId});
+            const product=await Product.findById(req.productId);
+
+            const isPresent=await CartItem.findOne({userId:userId, product:product._id, cart:cart._id});
+
+            if(!isPresent){
+                const cartItem= new CartItem({
+                    cart:cart._id,
+                    product:product._id,
+                    size:req.size,
+                    quantity:1,
+                    price:product.price,
+                    discount:product.discountedPrice,
+                    userId:userId
+                })
+
+                const createdCartItem=await cartItem.save();
+                cart.cartItems.push(createdCartItem);
+                await cart.save();
+                return "item added successfully"
+            }
+        }
+        catch(error){
+        throw new Error(`Error in adding: ${error.message}`);
+        }
+} 
+
+
+export {createCart, findUserCart, addCartItem}

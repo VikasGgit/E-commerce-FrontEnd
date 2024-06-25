@@ -7,12 +7,10 @@ const CartItemSchema = new mongoose.Schema({
         ref:"cart"
     },
     product:{
-        required:true,
         type:mongoose.Schema.Types.ObjectId,
         ref:"products"
     },
     size:{
-        required:true,
         type:String, 
     },
     quantity:{
@@ -22,11 +20,11 @@ const CartItemSchema = new mongoose.Schema({
     },
     price:{
         type:Number,
-        required:true,
+        
     },
     discountedPrice:{
         type:Number,
-        required:true,
+       
     },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
@@ -35,6 +33,6 @@ const CartItemSchema = new mongoose.Schema({
     }
 });
 
-const cartItem=mongoose.model("cartItems", CartItemSchema);
+const CartItem=mongoose.model("cartItems", CartItemSchema);
 
-export default cartItem;
+export default CartItem;
