@@ -12,9 +12,9 @@ export const Carousel = () => (
         controlsStrategy="alternate"
         disableButtonsControls
         autoPlay
-        autoPlayInterval={1000}
+        autoPlayInterval={3000}
         infinite
-        
+        animationDuration={900}
     />
    
 );

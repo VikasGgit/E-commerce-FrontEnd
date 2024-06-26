@@ -9,7 +9,7 @@ import userRouter from "./routes/user.route.js"
 app.use(express.json());
 app.use(cors());
 app.use('/auth', authRouter)
-app.use('/user', userRouter);
+app.use('/api/users', userRouter);
 
 import productRouter from "./routes/product.route.js"
 app.use("/api/products", productRouter);

@@ -3,7 +3,7 @@ getAllProducts, createMultipleProducts} from "../services/product.service.js"
 
 const createProducts = async(req, res)=>{
     try{    
-        product= await createProduct(req.body)
+      const  product= await createProduct(req.body)
         return res.status(200).send(product);
     }
     catch(e){
@@ -33,7 +33,6 @@ const updateProducts = async(req, res)=>{
 
 const findProductsById = async(req, res)=>{
     try{
-
         const product = await findProductById(req.params.id);
         return res.status(200).send(product);
     }

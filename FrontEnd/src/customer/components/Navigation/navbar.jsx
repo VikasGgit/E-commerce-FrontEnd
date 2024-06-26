@@ -16,6 +16,9 @@ import {
   TransitionChild,
 } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Avatar from '@mui/material/Avatar';
+import {  deepPurple } from '@mui/material/colors';
+
 
 const navigation = {
   categories: [
@@ -262,7 +265,7 @@ export default function Navbar() {
                 <div className="px-4 py-6 space-y-6 border-t border-gray-200">
                   <div className="flow-root">
                     <a href="#" className="block p-2 -m-2 font-medium text-gray-900">
-                      Sign in
+                      <Avatar sx={{bgcolor: deepPurple[500]}}></Avatar>
                     </a>
                   </div>
                   <div className="flow-root">
@@ -410,23 +413,13 @@ export default function Navbar() {
               <div className="flex items-center ml-auto">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
-                    Sign in
+                      <Avatar  sx={{ bgcolor: deepPurple[500] }} >V</Avatar>
                   </a>
                   <span className="w-px h-6 bg-gray-200" aria-hidden="true" />
                
                 </div>
 
-                {/* <div className="hidden lg:ml-8 lg:flex">
-                  <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
-                    <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      alt=""
-                      className="flex-shrink-0 block w-5 h-auto"
-                    />
-                    <span className="block ml-3 text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div> */}
+             
 
                 {/* Search */}
                 <div className="flex lg:ml-6">

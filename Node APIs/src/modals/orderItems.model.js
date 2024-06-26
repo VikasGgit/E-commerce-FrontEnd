@@ -20,6 +20,7 @@ const OrderItemsSchema= new mongoose.Schema({
     discountedPrice:{
         required:true,
         type:Number,
+        
     },
     userId:{
         type:mongoose.Schema.Types.ObjectId,

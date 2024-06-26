@@ -9,7 +9,7 @@ const createOrder = async (user, shipAddress) => {
   } else {
     address = new Address(shipAddress);
     address.user = user;
-    await Address.save();
+    await address.save();
     user.address.push(address);
     await user.save();
   }

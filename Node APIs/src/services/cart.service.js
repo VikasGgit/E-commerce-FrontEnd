@@ -18,31 +18,65 @@ const createCart= async(user)=>{
    
 }
 
-const findUserCart = async(user)=>{
-    try{
-    const cart=await Cart.find({user});
-    let cartItems=CartItem.find({cart:cart._id}).populate('products');
-    cart.cartItems = cartItems;
-    let totalPrice=0;
-    let totalDiscountedPrice=0;
-    let totalItems=0;
+// const findUserCart = async(user)=>{
+//     try{
+//     const cart=await Cart.find({user});
+//     let cartItems=CartItem.find({cart:cart._id}).populate('products');
+//     cart.cartItems = cartItems;
+//     let totalPrice=0;
+//     let totalDiscountedPrice=0;
+//     let totalItems=0;
 
-    for(let cartItem of cart.cartItems){
-        totalPrice += cartItem.price;
-        totalDiscountedPrice += cartItem.discountedPrice;
-        totalItems += cartItem.quantity;
-}
-    let discount = totalPrice-totalDiscountedPrice;
-    cart.totalPrice=totalPrice;
-    cart.discount=discount;
-    cart.totalItem=totalItems;
+    
 
-    return cart;
+//     for(let cartItem of cart.cartItems){
+//         totalPrice += cartItem.price;
+//         totalDiscountedPrice += cartItem.discountedPrice;
+//         totalItems += cartItem.quantity;
+// }
+//     let discount = totalPrice-totalDiscountedPrice;
+//     cart.totalPrice=totalPrice;
+//     cart.discount=discount;
+//     cart.totalItem=totalItems;
+
+//     return cart;
+//     }
+//     catch (error) {
+//         throw new Error(`Error in creating finding: ${error.message}`);
+//     }
+// }
+
+const findUserCart = async (user) => {
+    try {
+        const cart = await Cart.findOne({ user });
+        if (!cart) {
+            throw new Error('Cart not found');
+        }
+
+        const cartItems = await CartItem.find({ cart: cart._id }).populate('product');
+        cart.cartItems = cartItems;
+        
+        let totalPrice = 0;
+        let totalDiscountedPrice = 0;
+        let totalItems = 0;
+
+        for (let cartItem of cartItems) {
+            totalPrice += cartItem.price * cartItem.quantity;
+            totalDiscountedPrice += cartItem.discountedPrice * cartItem.quantity;
+            totalItems += cartItem.quantity;
+        }
+
+        let discount = totalPrice - totalDiscountedPrice;
+        cart.totalPrice = totalPrice;
+        cart.discount = discount;
+        cart.totalItem = totalItems;
+
+        return cart
+    } catch (error) {
+        throw new Error(`Error in finding cart: ${error.message}`);
     }
-    catch (error) {
-        throw new Error(`Error in creating finding: ${error.message}`);
-    }
-}
+};
+
 
 const addCartItem= async (userId, req)=>{
         try{

@@ -1,6 +1,6 @@
 import authenticate from '../middlewares/authenticate.js';
 import { cancelledOrders, confirmedOrders, deletedOrder, deliveredOrders, getAllOrder, shippOrders } from '../controllers/admin.controller.js';
-const express=require('express');
+import express from 'express'
 const router = express.Router();
 
 router.get('/', authenticate, getAllOrder);
