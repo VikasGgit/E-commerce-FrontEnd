@@ -16,10 +16,12 @@ ADD_ITEM_TO_CART_FAILURE,
 
 export const addItemToCart = (reqData) => async (dispatch) => {
   dispatch({ type: ADD_ITEM_TO_CART_REQUEST });
-
+  console.log(reqData);
   try {
     const { data } = await api.put("/api/cart/add", reqData);
+    
     dispatch({ type: ADD_ITEM_TO_CART_SUCCESS, payload: data });
+    
   } catch (e) {
     dispatch({ type: ADD_ITEM_TO_CART_FAILURE, payload: e.message });
   }
@@ -38,12 +40,17 @@ export const removeItemToCart = (reqData) => async (dispatch) => {
 
 export const updateItemToCart = (reqData) => async (dispatch) => {
   dispatch({ type: UPDATE_CART_ITEM_REQUEST });
+   
+   const id= reqData.cartItemId;
+   const dat= reqData.data;
+ 
 
   try {
     const { data } = await api.put(
-      `/api/cart_items/${reqData.cartItemId}`,
-      reqData.data
+      `/api/cart_items/${id}`,
+     dat
     );
+   console.log(data);
     dispatch({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: UPDATE_CART_ITEM_FAILURE, payload: e.message });

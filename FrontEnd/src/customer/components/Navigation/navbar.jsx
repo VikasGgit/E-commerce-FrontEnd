@@ -437,6 +437,11 @@ useEffect(()=>{
 
 [auth.user, jwt]);
 
+const handleCategoryClick = (category, section, item, close) => {
+  navigate(`/${category.id}/${section.id}/${item.id}`);
+  close();
+};
+
   const handleLogout = () => {
       dispatch(logout());
     
@@ -446,7 +451,7 @@ useEffect(()=>{
     <div className="text-red-700 bg-white ">
       {/* Mobile menu */}
       <Transition show={open}>
-        <Dialog className="relative z-40 lg:hidden" onClose={setOpen}>
+        <Dialog className="relative lg:hidden" onClose={setOpen}>
           <TransitionChild
             enter="transition-opacity ease-linear duration-300"
             enterFrom="opacity-0"
@@ -530,9 +535,16 @@ useEffect(()=>{
                             >
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
-                                  <a href={item.href} className="block p-2 -m-2 text-gray-500">
-                                    {item.name}
-                                  </a>
+                                  <p onClick={() =>
+                                                    handleCategoryClick(
+                                                      category,
+                                                      section,
+                                                      item,
+                                                      close
+                                                    )}>
+                                                      {item.name}
+                                                      </p> 
+                                    
                                 </li>
                               ))}
                             </ul>
@@ -668,9 +680,19 @@ useEffect(()=>{
                                           >
                                             {section.items.map((item) => (
                                               <li key={item.name} className="flex">
-                                                <a href={item.href} className="hover:text-gray-800">
+                                                <p
+                                                  onClick={() =>
+                                                    handleCategoryClick(
+                                                      category,
+                                                      section,
+                                                      item,
+                                                      close
+                                                    )
+                                                  }
+                                                  className="cursor-pointer hover:text-gray-800"
+                                                >
                                                   {item.name}
-                                                </a>
+                                                </p>
                                               </li>
                                             ))}
                                           </ul>

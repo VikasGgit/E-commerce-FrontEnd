@@ -79,31 +79,35 @@ const findUserCart = async (user) => {
 
 
 const addCartItem= async (userId, req)=>{
+        // console.log(userId);
+        console.log(req);
         try{
             const cart=await Cart.findOne({user:userId});
-            const product=await Product.findById(req.productId);
-
-            const isPresent=await CartItem.findOne({userId:userId, product:product._id, cart:cart._id});
+            // console.log(cart);
+            const product=await Product.findById(req);
+                console.log("ram ram", product);
+            const isPresent=await CartItem.findOne({userId:userId, product:product?._id, cart:cart._id});
 
             if(!isPresent){
                 const cartItem= new CartItem({
                     cart:cart._id,
-                    product:product._id,
+                    product:product?._id,
                     size:req.size,
                     quantity:1,
-                    price:product.price,
-                    discount:product.discountedPrice,
+                    price:product?.price,
+                    discount:product?.discountedPrice,
                     userId:userId
                 })
 
                 const createdCartItem=await cartItem.save();
                 cart.cartItems.push(createdCartItem);
                 await cart.save();
-                return "item added successfully"
+                console.log("the created item is", createdCartItem);
+                return createdCartItem
             }
         }
         catch(error){
-        throw new Error(`Error in adding: ${error.message}`);
+            throw new Error(error.message);
         }
 } 
 

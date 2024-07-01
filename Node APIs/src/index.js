@@ -7,7 +7,9 @@ import userRouter from "./routes/user.route.js"
 
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+    
+));
 app.use('/auth', authRouter)
 app.use('/api/users', userRouter);
 

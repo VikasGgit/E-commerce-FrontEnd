@@ -27,10 +27,11 @@ const findUserCarts=async(req, res)=>{
 
 const addCartItems=async(req, res)=>{
     let user= req.user;
-
+    const {productId}= req.body;
+    console.log("the product id is", productId);
     try{
-        const cart= addCartItem(user._id, req.body );
-            return res.status(200).send("Item added successfully")
+        const cart= addCartItem(user._id, productId );
+            return res.status(200).send(cart)
     }catch(err){
         return res.status(500).send({err: err.message});
     }

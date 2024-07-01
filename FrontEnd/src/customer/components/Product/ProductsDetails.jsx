@@ -5,7 +5,7 @@ import { Radio, RadioGroup } from '@headlessui/react'
 
 import { Button, Grid, LinearProgress, Rating,Box } from '@mui/material'
 import ProductReveiwCard from './ProductReveiwCard'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { findProductById } from '../../../state/Product/Action.js'
 import { addItemToCart } from '../../../state/Cart/Action.js'
@@ -71,7 +71,7 @@ export default function ProductsDetails() {
   const dispatch=useDispatch()
   const [selectedSize, setSelectedSize] = useState(produc.sizes[2])
   const {product} =useSelector(store=>store)  
-
+  const navigate=useNavigate()
   
   const params=useParams();
   console.log("-----------",params)
@@ -80,9 +80,11 @@ export default function ProductsDetails() {
     dispatch(findProductById(params))
   },[params.productId])  
 
+  const locat=useParams()
+  
   const handleAddToCart=()=>{
-    const {data}={productId:params.productId, size:selectedSize}
-    dispatch(addItemToCart(data))
+    console.log(locat)
+    dispatch(addItemToCart(locat))
     navigate("/cart")
   }
   
