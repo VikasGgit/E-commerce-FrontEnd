@@ -64,6 +64,7 @@ export default function Navbar() {
   const handleCategoryClick = (category, section, item, close) => {
     navigate(`/${category.id}/${section.id}/${item.id}`);
     setOpen(false);
+    close();
   };
 
   

@@ -3,16 +3,16 @@ import { CREATE_ORDER_FAILURE, CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, GET_O
 
 
 export const createOrder=(reqData)=>async(dispatch)=>{
-    console.log("request Data: " + reqData);
+    console.log("request Data: " , reqData);
   dispatch({type: CREATE_ORDER_REQUEST})
   try{
     const {data} = await api.post('/api/orders',
         reqData.address,
-    );
-    if(data.id){
-        reqData.navigate({search:`step=3&order_id=${data.id}`})
+    );      
+    if(data._id){
+        reqData.navigate({search:`step=3&order_id=${data._id}`})
     }
-    console.log("created Order: " + data);
+    console.log("created Order: " , data);
     dispatch({type: CREATE_ORDER_SUCCESS,
         payload: data});
 

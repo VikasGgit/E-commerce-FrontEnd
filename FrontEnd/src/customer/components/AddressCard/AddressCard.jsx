@@ -1,6 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+
+
 
 const AddressCard = () => {
+  
   return (
     <div>
         <div className='p-1 font-semibold' >

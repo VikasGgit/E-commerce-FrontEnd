@@ -6,7 +6,7 @@ import { get } from '../../../state/Cart/Action';
 import { useNavigate } from 'react-router-dom';
 
 
-const Cart = () => {
+const Cart = (button) => {
 const {cart}= useSelector(store=>store)
 const dispatch = useDispatch();
 useEffect(()=>{
@@ -46,7 +46,7 @@ const navigate=useNavigate();
               <span className='font-bold text-green-600 ' >{cart.cart?.totalDiscountedPrice}</span>
           </div>
           <div className='mt-3' >
-          <Button variant='contained' className='w-full' onClick={()=>{navigate('/checkout?step=2')}}>Checkout</Button>
+          <Button variant='contained' className='w-full' onClick={()=>{navigate('/checkout?step=2')}}>{button===null?{button}:`Checkout`}</Button>
          </div>
           
         </div>
