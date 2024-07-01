@@ -23,10 +23,10 @@ const CustomerRoutes = () => {
         <Navbar/>
         <Routes>
             <Route path='/' element={<Homepage/>} />
-            <Route path='product' element={<Product/>} />
-            <Route path="product/details" element={<ProductsDetails/>} />
-            <Route path="cart" element={<Cart/>} />
-            <Route path="checkout" element={<CheckOut/>} />
+            <Route path='/:levelOne/:levelTwo/:levelThree' element={<Product/>} />
+            <Route path="/product/:productId" element={<ProductsDetails/>} />
+            <Route path="/cart" element={<Cart/>} />
+            <Route path="/checkout" element={<CheckOut/>} />
         </Routes>
         <Footer/>
     </div>

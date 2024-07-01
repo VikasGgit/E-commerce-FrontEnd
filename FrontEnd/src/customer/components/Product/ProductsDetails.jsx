@@ -1,12 +1,16 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { data } from './ProductData'
 import { Radio, RadioGroup } from '@headlessui/react'
 
 import { Button, Grid, LinearProgress, Rating,Box } from '@mui/material'
 import ProductReveiwCard from './ProductReveiwCard'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { findProductById } from '../../../state/Product/Action.js'
+import { addItemToCart } from '../../../state/Cart/Action.js'
 
-const product = {
+const produc = {
   name: 'Basic Tee 6-Pack',
   price: '$192',
   href: '#',
@@ -62,16 +66,33 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
 export default function ProductsDetails() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+  const dispatch=useDispatch()
+  const [selectedSize, setSelectedSize] = useState(produc.sizes[2])
+  const {product} =useSelector(store=>store)  
+
+  
+  const params=useParams();
+  console.log("-----------",params)
+  
+  useEffect(()=>{
+    dispatch(findProductById(params))
+  },[params.productId])  
+
+  const handleAddToCart=()=>{
+    const {data}={productId:params.productId, size:selectedSize}
+    dispatch(addItemToCart(data))
+    navigate("/cart")
+  }
+  
 
   return (
     <div className="bg-white">
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol role="list" className="flex items-center max-w-2xl px-4 mx-auto space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
-            {product.breadcrumbs.map((breadcrumb) => (
+            {produc.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
                   <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
@@ -103,14 +124,14 @@ export default function ProductsDetails() {
         <div className="flex flex-col items-center ">
           <div className='overflow-hidden max-w-[30rem] max-h-[35rem] rounded-lg mb-1' >
             <img
-              src={product.images[0].src}
-              alt={product.images[0].alt}
+              src={product.product?.imageUrl}
+              alt=""
               className="object-cover object-center w-full h-full"
             />
           </div>
           <div className="flex flex-wrap justify-between gap-5 px-20 ">
                 {
-                    product.images.map((item)=>
+                    product.product?.images?.map((item)=>
                     <div className="max-w-[5rem] max-h-[5rem]  ">
               <img
                 src={item.src}
@@ -130,17 +151,17 @@ export default function ProductsDetails() {
         {/* Product info */}
         <div className="max-w-2xl px-4 pb-16 lg:col-span-1 maxt-auto sm:px-6 lg:max-w-7xl lg:pb-24">
           <div className="lg:col-span-2 ">
-            <h1 className="text-lg font-semibold text-gray-900 lg:text-xl">Universal</h1>
-            <h1 className="pt-1 text-lg font-semibold text-gray-900 lg:text-xl opacity-60">Jai ram ji ki dhirts</h1>
+            <h1 className="text-lg font-semibold text-gray-900 lg:text-xl">{product.product?.brand}</h1>
+            <h1 className="pt-1 text-lg font-semibold text-gray-900 lg:text-xl opacity-60">{product.product?.title}</h1>
           </div>
 
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <div className='flex items-center mt-6 space-x-5 text-lg text-gray-900 lg:text-xl' >
-              <p className='font-bold' >₹ 1400</p>
-              <p className='text-lg font-thin line-through' >₹4000</p>
-              <p className='text-2xl text-green-500 font-2extrabold' >70%</p>
+              <p className='font-bold' >{`₹ ${product.product?.discountedPrice}`}</p>
+              <p className='text-lg font-thin line-through' >{`₹ ${product.product?.price}`}</p>
+              <p className='text-2xl text-green-500 font-2extrabold' >{`₹ ${product.product?.discount}`}</p>
             </div>-
 
             {/* Reviews */}
@@ -200,7 +221,7 @@ export default function ProductsDetails() {
                     onChange={setSelectedSize}
                     className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4"
                   >
-                    {product.sizes.map((size) => (
+                    {product.product?.sizes?.map((size) => (
                       <Radio
                         key={size.name}
                         value={size}
@@ -250,7 +271,7 @@ export default function ProductsDetails() {
                 </fieldset>
               </div>
 
-             <Button variant='contained' sx={{mt:"1rem", p:".65rem"}} >
+             <Button  onClick={handleAddToCart} variant='contained' sx={{mt:"1rem", p:".65rem"}} >
               Add to Cart
              </Button>
             </form>
@@ -262,7 +283,7 @@ export default function ProductsDetails() {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+                <p className="text-base text-gray-900"> ${product.product?.description}</p>
               </div>
             </div>
 
@@ -271,7 +292,7 @@ export default function ProductsDetails() {
 
               <div className="mt-4">
                 <ul role="list" className="pl-4 space-y-2 text-sm list-disc">
-                  {product.highlights.map((highlight) => (
+                  {product.highlights?.map((highlight) => (
                     <li key={highlight} className="text-gray-400">
                       <span className="text-gray-600">{highlight}</span>
                     </li>

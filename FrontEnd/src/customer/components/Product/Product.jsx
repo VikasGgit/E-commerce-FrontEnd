@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProductCard from './ProductCard'
 import { data } from './ProductData'
-import {useNavigate, useLocation} from 'react-router-dom'
+import {useNavigate, useLocation, useParams} from 'react-router-dom'
 
 import { Fragment, useState } from 'react'
 import {
@@ -20,6 +20,11 @@ import {
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { filters, singleFilters } from './ProductData'
+import { useDispatch, useSelector } from 'react-redux'
+import { findProducts } from '../../../state/Product/Action.js'
+ import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 
 const sortOptions = [
  
@@ -33,12 +38,61 @@ function classNames(...classes) {
 
 export default function Product() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-  
-  
-  
+
     const location = useLocation();
     const navigate = useNavigate();
+    const param= useParams();
+    const dispatch = useDispatch();
+    const {product}=useSelector(store=>store)
+    
+    const decodedQueryString = decodeURIComponent(location.search);
+    const searchParams = new URLSearchParams(decodedQueryString);
+    const colorValue = searchParams.get('color');
+    const sizeValue = searchParams.get('size');
+    const priceValue = searchParams.get('price');
+    const discountValue = searchParams.get('discount range');  
+    const availabiltyValue = searchParams.get('availability');  
+    const sortValue = searchParams.get('sort');
+    const pageNumber = searchParams.get('pageNumber') || 1;
+
+    
+    const handleChange = (event, value) => {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('pageNumber', value);
+      const query=searchParams.toString();
+      navigate({search:`?${query}`})
+    };
+
+    
+    
+
+    useEffect(() =>{
+      const [minPrice, maxPrice]=priceValue===null?[]:priceValue.split('-').map(Number);
+      // category, color, sizes, minPrice, maxPrice, minDiscount, sort, stock, pageNumber, pageSize 
+     
+      const data= {
+        category:param.lavelThree,
+        color:colorValue,
+        sizes:sizeValue,
+        minPrice, 
+        maxPrice, 
+        sort:sortValue,
+        minDiscount:discountValue,
+        pageNumber:pageNumber,
+        pageSize:3,
+        stock:availabiltyValue
+      }
+
+      dispatch(findProducts(data));
+      
+      
+     },[param.lavelThree,
+    colorValue, sizeValue, priceValue, discountValue, availabiltyValue, sortValue, pageNumber]);
+     
+    
   
+
+    
     const han = (value, sectionId) => {
       const searchParams = new URLSearchParams(location.search);
       let filterValue = searchParams.get(sectionId)?.split(',') || [];
@@ -65,7 +119,9 @@ export default function Product() {
       const query = searchParams.toString();
       navigate(`?${query}`);
     }
-  
+   
+    
+    
   
   
   return (
@@ -375,13 +431,31 @@ export default function Product() {
               {/* Product grid */}
               <div className="lg:col-span-3">
                 <div className='flex flex-row flex-wrap items-center justify-center' >
-                {data.map((item)=>(<div>
+                { product.products && product.products?.content?.map ((item)=>(<div>
                   <ProductCard item={item}/>
                   </div>))}
+                  
                   </div>
+                 
               </div>
+
+             
+
+
+
+
             </div>
           </section>
+          
+            {/* {pagination} */}
+          <section className='w-full px-[3.6rem]' >
+            <div className='flex justify-center px-4 ' >
+    <Stack sx={{marginTop:"25px"}} spacing={2}>
+      <Pagination count={product.products?.totalPages} color="primary" onChange={handleChange} />
+    </Stack>
+    </div>
+          </section>
+          
         </main>
       </div>
     </div>
