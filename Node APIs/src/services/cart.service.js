@@ -61,8 +61,8 @@ const findUserCart = async (user) => {
         let totalItems = 0;
 
         for (let cartItem of cartItems) {
-            totalPrice += cartItem.price * cartItem.quantity;
-            totalDiscountedPrice += cartItem.discountedPrice * cartItem.quantity;
+            totalPrice += cartItem.price;
+            totalDiscountedPrice += cartItem.discountedPrice;
             totalItems += cartItem.quantity;
         }
 
@@ -70,7 +70,8 @@ const findUserCart = async (user) => {
         cart.totalPrice = totalPrice;
         cart.discount = discount;
         cart.totalItem = totalItems;
-
+        cart.totalDiscountedPrice = totalDiscountedPrice;
+        await cart.save();
         return cart
     } catch (error) {
         throw new Error(`Error in finding cart: ${error.message}`);
@@ -100,7 +101,7 @@ const addCartItem= async (userId, req)=>{
                 })
 
                 const createdCartItem=await cartItem.save();
-                cart.cartItems.push(createdCartItem);
+                 cart.cartItems.push(createdCartItem);
                 await cart.save();
                 console.log("the created item is", createdCartItem);
                 return createdCartItem

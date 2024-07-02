@@ -28,6 +28,8 @@ const LoginForm = () => {
         };
         dispatch(login(formData));
         console.table(formData)
+        
+        navigate('/');
      
     };
 

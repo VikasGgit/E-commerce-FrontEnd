@@ -4,7 +4,10 @@ import HomeCard from '../../components/HomeSectionCard/HomeCard'
 import HomeSectionCarosal from '../../components/HomeSectionCarosal/HomeSectionCarosal'
 import { KurtaMens } from '../../../data/MensKurta'
 
+
+
 const Homepage = () => {
+  
   return (
     <>
 <Carousel className="-z-50" />

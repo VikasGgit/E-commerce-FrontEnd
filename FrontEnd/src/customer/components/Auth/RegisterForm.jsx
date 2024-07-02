@@ -33,6 +33,8 @@ const RegisterForm = () => {
             console.table(formData);
             dispatch(register(formData));
             console.log(auth)
+
+            navigate('/')
   
        
     };

@@ -5,8 +5,10 @@ const findUserCarts=async(req, res)=>{
     const user= req.user;
     try{
         const cart= await findUserCart(user._id);
-        if(cart.length===0) return res.status(200).send("Cart not is empty")
-        return res.status(200).send(cart)
+        if(cart.length===0) {
+        return res.status(200).send("Cart not is empty")}
+        else{
+        return res.status(200).send(cart)}
     }catch(err){
         return res.status(500).send({err: err.message});
     }

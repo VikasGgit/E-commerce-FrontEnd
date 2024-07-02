@@ -79,7 +79,7 @@ export default function Product() {
         sort:sortValue,
         minDiscount:discountValue,
         pageNumber:pageNumber,
-        pageSize:3,
+        pageSize:9,
         stock:availabiltyValue
       }
 
@@ -121,7 +121,7 @@ export default function Product() {
     }
    
     
-    
+    console.log(product);
   
   
   return (
@@ -333,8 +333,7 @@ export default function Product() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               
-              <div
-              >
+              <div>
               <p className='text-xl font-extrabold' >Filters</p>
               <form className="hidden lg:block">
                 <h3 className="sr-only">Categories</h3>

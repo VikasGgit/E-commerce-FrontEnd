@@ -29,12 +29,16 @@ const navigate=useNavigate();
           <p className='mb-2 font-extrabold uppercase' >Price Details</p>
           <hr/>
           <div className='flex justify-between px-3 mt-3 mb-1' >
-            <span className='font-semibold text-' >Total Price </span> 
-              <span className='font-bold text-red-800' >{cart.cart?.totalDiscountedPrice}</span>
+            <span className='font-semibold text-' >Total Offer Price </span> 
+              <span className='font-bold text-red-800' >₹{cart.cart?.totalDiscountedPrice}</span>
           </div>
           <div className='flex justify-between px-3 mb-1' >
-            <span className='font-semibold text-' >Total   Discount </span> 
-              <span className='font-bold text-yellow-400 ' >-{cart.cart?.totalPrice}</span>
+            <span className='font-semibold text-' >Total Price </span> 
+              <span className='font-bold text-yellow-400 line-through' >₹{cart.cart?.totalPrice}</span>
+          </div>
+          <div className='flex justify-between px-3 mb-3' >
+            <span className='font-semibold text-' >Total Discount </span> 
+              <span className='font-bold text-green-400 ' >₹{cart.cart?.discount}</span>
           </div>
           <div className='flex justify-between px-3 mb-3' >
             <span className='font-semibold text-' >Delivery Charges </span> 
@@ -43,7 +47,7 @@ const navigate=useNavigate();
           <hr />
           <div className='flex justify-between px-3 mb-1' >
             <span className='font-semibold text-' >To Pay </span> 
-              <span className='font-bold text-green-600 ' >{cart.cart?.totalDiscountedPrice}</span>
+              <span className='font-bold text-green-600 ' >₹{cart.cart?.totalDiscountedPrice}</span>
           </div>
           <div className='mt-3' >
           <Button variant='contained' className='w-full' onClick={()=>{navigate('/checkout?step=2')}}>{button===null?{button}:`Checkout`}</Button>

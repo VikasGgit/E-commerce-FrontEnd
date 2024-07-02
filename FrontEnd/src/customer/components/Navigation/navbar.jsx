@@ -259,14 +259,14 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="flex ml-4 lg:ml-0">
-                <a href="#">
+                <p onClick={()=>navigate('/')} className="cursor-pointer" >
                   <span className="sr-only">Your Company</span>
                   <img
                     className="w-auto h-8"
                     src="https://www.freepngimg.com/thumb/online_shopping/10-2-online-shopping-png-image.png"
                     alt=""
                   />
-                </a>
+                </p>
               </div>
 
               {/* Flyout menus */}
@@ -427,16 +427,16 @@ export default function Navbar() {
 
                 {/* Cart */}
                 <div className="flow-root ml-4 lg:ml-6">
-                  <a href="#" className="flex items-center p-2 -m-2 group">
+                  <p onClick={()=>navigate('/cart')}  className="flex items-center p-2 -m-2 cursor-pointer group">
                     <ShoppingBagIcon
                       className="flex-shrink-0 w-6 h-6 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
                     <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      0
+                      
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
-                  </a>
+                  </p>
                 </div>
               </div>
             </div>
