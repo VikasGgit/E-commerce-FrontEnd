@@ -79,7 +79,7 @@ export default function Product() {
         sort:sortValue,
         minDiscount:discountValue,
         pageNumber:pageNumber,
-        pageSize:3,
+        pageSize:9,
         stock:availabiltyValue
       }
 
