@@ -1,11 +1,11 @@
 import axios from 'axios'
  
  
-export const API_BASE_URL= "https://e-commerce-api-8qvq.onrender.com"
+export const API_BASE_URL= process.env.API_URL||"https://e-commerce-api-8qvq.onrender.com"
 
 const jwt = localStorage.getItem("jwt");
 
-export const api= axios.create({
+export const api= axios.create({ 
    baseURL: API_BASE_URL,
    headers:{
        "Authorization": `Bearer ${jwt}`,
