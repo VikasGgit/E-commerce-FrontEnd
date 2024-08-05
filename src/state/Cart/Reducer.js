@@ -18,6 +18,7 @@ const initialState = {
   laoding: false,
   error: null,
   cartItems: [],
+  data: null,
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -64,11 +65,17 @@ export const cartReducer = (state = initialState, action) => {
       };
     case UPDATE_CART_ITEM_FAILURE:
     case REMOVE_CART_ITEM_FAILURE:
+    case "CLEAR_CART_FAILURE":
       return {
         ...state,
         error: action.payload,
         loading: false,
       };
+    
+    case "CLEAR_CART_REQUEST":
+      return { ...state, laoding:true};
+    case "CLEAR_CART_SUCCESS":
+      return  {...state, data:action.payload}
     default:
       return state;
   }

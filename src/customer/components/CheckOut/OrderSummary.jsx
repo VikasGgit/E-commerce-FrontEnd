@@ -1,12 +1,22 @@
 import React from 'react'
-import AddressCard from '../AddressCard/AddressCard'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import CartItem from '../Cart/CartItem'
 import { Grid ,Button } from '@mui/material';
+import { createPayment } from '../../../state/Payment/Action';
+import { clearCart } from '../../../state/Cart/Action';
+
 
 const OrderSummary = () => {
 const {order} =useSelector(state=>state)
 console.log('OrderSummary', order.order)  
+
+const dispatch= useDispatch()
+
+const handlePayment=()=>{
+  console.log('OrderSummary', order.order)
+  dispatch(createPayment(order.order._id))
+  dispatch(clearCart());
+}
 
   return (
     <div>
@@ -55,7 +65,7 @@ console.log('OrderSummary', order.order)
 }</span>
           </div>
           <div className='mt-3' >
-          <Button variant='contained' className='w-full' onClick={()=>{navigate('/checkout?step=4')}}>Proceed to pay</Button>
+          <Button variant='contained' className='w-full' onClick={handlePayment}>Proceed to pay</Button>
          </div>
           
         </div>
