@@ -1,7 +1,8 @@
  import axios from 'axios'
  
  
- export const API_BASE_URL= process.env.API_URL||"https://e-commerce-api-8qvq.onrender.com"
+//  export const API_BASE_URL= process.env.API_URL||"https://e-commerce-api-8qvq.onrender.com"
+ export const API_BASE_URL="http://localhost:4000"
 
 const jwt = localStorage.getItem("jwt");
 

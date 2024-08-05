@@ -52,7 +52,7 @@ const findUserCart = async (user) => {
         if (!cart) {
             throw new Error('Cart not found');
         }
-
+        console.log("finduserCart",cart.cartItems);
         const cartItems = await CartItem.find({ cart: cart._id }).populate('product');
         cart.cartItems = cartItems;
         
@@ -77,6 +77,9 @@ const findUserCart = async (user) => {
         throw new Error(`Error in finding cart: ${error.message}`);
     }
 };
+
+
+
 
 
 const addCartItem= async (userId, req)=>{
@@ -113,4 +116,29 @@ const addCartItem= async (userId, req)=>{
 } 
 
 
-export {createCart, findUserCart, addCartItem}
+
+
+
+
+
+
+
+
+
+
+const clearCart= async (user) => {
+    try {
+        const cart = await Cart.findOne({ user });
+        if (!cart) {
+            throw new Error('Cart not found');
+        }
+        console.log(cart.cartItems);
+        cart.cartItems=[];
+        await cart.save();
+        return "Order Placed Successfully"
+    } catch (error) {
+        throw new Error(`Error in finding cart: ${error.message}`);
+    }
+};
+
+export {createCart, findUserCart, addCartItem, clearCart}

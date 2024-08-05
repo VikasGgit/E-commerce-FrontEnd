@@ -67,3 +67,15 @@ export const get = () => async (dispatch) => {
     dispatch({ type: GET_CART_FAILURE, payload: e.message });
   }
 };
+
+export const clearCart = () => async (dispatch) => {
+  dispatch({ type: "CLEAR_CART_REQUEST"});
+
+  try {
+    const { data } = await api.put(`/api/cart/clear`);
+    console.log("this is from clear cart redux");
+    dispatch({ type: "CLEAR_CART_SUCCESS", payload: data });
+  } catch (e) {
+    dispatch({ type: "CLEAR_CART_FAILURE", payload: e.message });
+  }
+};
