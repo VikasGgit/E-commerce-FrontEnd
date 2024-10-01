@@ -23,9 +23,6 @@ export default function CheckOut() {
 
 
   const handleNext = () => {
-    
-   
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };

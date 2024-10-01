@@ -19,12 +19,12 @@ const navigate=useNavigate();
             state:data.get('state'),
             phoneNumber:data.get('phonenumber'),
             streetAddress:data.get('address'),
-            landmark:"Vikas Galo",
+            landmark:"Vikas",
             zipCode:data.get('zip'),
         }
         console.log(address, navigate);
         const dat={address, navigate}
-        dispatch(createOrder(dat))  
+        dispatch(createOrder(dat))
     }
   return (
     <div>

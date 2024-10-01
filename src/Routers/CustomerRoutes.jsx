@@ -7,6 +7,7 @@ import Product from '../customer/components/Product/Product'
 import ProductsDetails from '../customer/components/Product/ProductsDetails'
 import Cart from '../customer/components/Cart/Cart'
 import CheckOut from '../customer/components/CheckOut/CheckOut'
+import PaymentStatus from '../customer/components/payment/payment.confirm'
 const CustomerRoutes = () => {
     // <Navbar  />
     // {/* <Homepage/> */}
@@ -27,9 +28,7 @@ const CustomerRoutes = () => {
             <Route path="/product/:productId" element={<ProductsDetails/>} />
             <Route path="/cart" element={<Cart/>} />
             <Route path="/checkout" element={<CheckOut/>} />
-            <Route path="/payment/:orderId"  element={<div>
-              Payment Success
-            </div>} />
+            <Route path="/payment"  element={<PaymentStatus/>} />
         </Routes>
         <Footer/>
     </div>
